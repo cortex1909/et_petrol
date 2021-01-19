@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ET Petrol</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav id="sidebar"></nav>
+
+        <div id="content">
+            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                <i class="material-icons">list</i>
+            </button>
+            <div class="jumbotron text-center">
+
+                <h1>ET PETROL</h1>
+                <h3>PREGLED RAČUNA</h3><br>
+            </div>
+
+            <table id="TablicaRacuni" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Količina / L</th>
+                        <th>Vrsta goriva</th>
+                        <th>Datum/vrijeme</th>
+                        <th>Zaposlenik</th>
+                        <th>Cijena / HRK</th>
+                    </tr>
+                </thead>
+                <tbody id="table_body"> </tbody>
+                <tbody id="table_body_storno"> </tbody>
+            </table>
+
+ <!-- Modal -->
+ <div class="modal fade" id="Storno" tabindex="-1" aria-labelledby="exampleModalLabel"
+ aria-hidden="true">
+ <div class="modal-dialog">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel">STORNIRAJ RAČUN</h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+             Jeste li sigurni da želite stornirati račun?
+         </div>
+         <div class="modal-footer">
+             <button type="button" class="zatvori" data-bs-dismiss="modal">Zatvori</button>
+             <button onclick="Storno()" type="submit" class="btn">Potvrdi</button> </div>
+     </div>
+ </div>
+</div>
+
+            <footer class="footer"></footer>
+        </div>
+    </div>
+
+    
+
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-database.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js">
+    </script>
+    <script src="js/bootstrap.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js">
+    </script>
+    <script src="js/config.js"></script>
+    <script src="js/benza.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+
+        $(document).ready(function () {
+            UcitajSpremnik();
+
+        });
+
+        $('#sidebar').load('static/nav.html');
+        $('.footer').load('static/footer.html');
+    </script>
+</body>
+
+</html>

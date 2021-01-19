@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ET Petrol</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav id="sidebar"></nav>
+
+        <div id="content">
+            <button type="button" id="sidebarCollapse" class="btn navbar-btn">
+                <i class="material-icons">list</i>
+            </button>
+            <div class="jumbotron text-center">
+
+                <h1>ET PETROL</h1>
+                <h4>sigurno do cilja uz najkvalitetnije gorivo</h4>
+            </div>
+
+            <section id="spremnici">
+                <div class="text-center">
+                    <div id="myDiv2" align="center" class="table-responsive"></div>
+            </section>
+            <section id="cijena">
+                <div class="text-center container-fluid bg-petrol">
+                    <h2>CIJENA GORIVA</h2>
+                </div>
+                <div class="row ">
+                    <div class="col-md-4 col-12 offset-md-2">
+                        <div class="card h-100">
+                            <div class="card-header text-center text-uppercase bg-heading">
+                                <h2>Diesel</h2>
+                            </div>
+                            <div class="card-body ">
+                                <p><strong>EURODIESEL BS Crodux MaxPower je bezsumporno gorivo vrhunske kvalitete
+                                        namijenjeno diesel motorima. Ovo gorivo obogaćeno je jedinstvenom kombinacijom
+                                        aditiva koji pomažu u čišćenju motora i komora za sagorijevanje od starih
+                                        naslaga prljavštine i ljepljivih taloga te poboljšanom podmazivanju sistema
+                                        distribucije (pumpe i dizne) što ima za posljedicu produženi radni vijek motora.
+                                    </strong></p>
+
+                            </div>
+                            <div class="card-footer text-center bg-heading">
+                                <div class="cijenad"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 ">
+                        <div class="card h-100">
+                            <div class="card-header text-center text-uppercase bg-heading">
+                                <h2>Benzin</h2>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>EUROSUPER 100 BS je visokooktansko benzinsko gorivo vrhunske kvalitete
+                                        namijenjeno vozačima koji očekuju razvijanje maksimalne snage od motora svog
+                                        vozila. Visoki oktanski broj, za automobile koji imaju ugrađen motor s
+                                        kompjutorski upravljanim paljenjem, osigurava viši stupanj iskoristivosti
+                                        energije što rezultira povećanom snagom, poboljšanim paljenjem te ekonomičnijom
+                                        potrošnjom.</strong></p>
+
+                            </div>
+                            <div class="card-footer text-center bg-heading">
+                                <div class="cijenab"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>To Do List</h3>
+                <li>Storno racuna</li>
+            </section>
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-database.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js">
+    </script>
+    <script src="js/bootstrap.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js">
+    </script>
+    <script src="js/config.js"></script>
+    <script src="js/benza.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+
+        $(document).ready(function () {
+            UcitajSpremnik();
+
+        });
+
+        $('#sidebar').load('static/nav.html');
+        $('.footer').load('static/footer.html');
+    </script>
+</body>
+
+</html>
