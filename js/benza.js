@@ -435,6 +435,3 @@ function Storno() {
         });
     }
 }
-
-// kada storniram, promjeniti vrijednost Storno na 1
-// ako je stornirano, ne može opet
