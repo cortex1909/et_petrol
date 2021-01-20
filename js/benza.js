@@ -52,7 +52,6 @@ oDbSpremnik_diesel.on('value', function (oOdgovorPosluzitelja) {
         });
     });
     UcitajCijenaDiesel();
-    PopuniTablicuDiesel();
 });
 
 var aSpremnik_benzin = [];
@@ -69,7 +68,6 @@ oDbSpremnik_benzin.on('value', function (oOdgovorPosluzitelja) {
         });
     });
     UcitajCijenaBenzin();
-    PopuniTablicuBenzin();
 });
 
 var aRacuni = [];
@@ -174,11 +172,13 @@ oDbSpremnici.on('value', function (oOdgovorPosluzitelja) {
         },
     };
 
-    Plotly.newPlot('myDiv2', data, layout, {
-        displaylogo: false,
-        modeBarButtonsToRemove: ['toImage'],
-        responsive: true
-    });
+    if ($('#myDiv2').length > 0) {
+        Plotly.newPlot('myDiv2', data, layout, {
+            displaylogo: false,
+            modeBarButtonsToRemove: ['toImage'],
+            responsive: true
+        });
+    }
 });
 
 var aZaposlenici = [];
@@ -379,6 +379,7 @@ function UcitajSpremnik() {
     });
 }
 var data;
+var _storno;
 
 function PopuniTablicuRacuni() {
     var table;
@@ -389,22 +390,24 @@ function PopuniTablicuRacuni() {
         } else if (oRacuni.VrstaGoriva == 2) {
             VrstaGor = "Benzin";
         }
-        if(oRacuni.Storno == 1){
+        if (oRacuni.Storno == 1) {
             $("#table_body_storno").append("<tr><td>" + oRacuni.Kolicina + "</td><td>" + VrstaGor + "</td><td>" + oRacuni.DatumVrijeme + "</td><td>" + oRacuni.Zaposlenik + "</td><td>" + oRacuni.Cijena + "</td></tr>");
-        }
-        else
-        {
-        $("#table_body").append("<tr><td>" + oRacuni.Kolicina + "</td><td>" + VrstaGor + "</td><td>" + oRacuni.DatumVrijeme + "</td><td>" + oRacuni.Zaposlenik + "</td><td>" + oRacuni.Cijena + "</td></tr>");
+        } else {
+            $("#table_body").append("<tr><td>" + oRacuni.Kolicina + "</td><td>" + VrstaGor + "</td><td>" + oRacuni.DatumVrijeme + "</td><td>" + oRacuni.Zaposlenik + "</td><td>" + oRacuni.Cijena + "</td></tr>");
         }
         $(document).ready(function () {
             table = $('#TablicaRacuni').DataTable();
-
         });
     });
+
     $(document).ready(function () {
-        $('#TablicaRacuni tbody').on('click', 'tr', function () {
+        $('#TablicaRacuni tbody#table_body').on('click', 'tr', function () {
             data = table.row(this).data();
             $('#Storno').modal("show");
+        });
+
+        $('#TablicaRacuni tbody#table_body_storno').on('click', 'tr', function () {
+            alert("Ovaj račun je već storniran.")
         });
     });
 
@@ -414,23 +417,58 @@ function Storno() {
     const fb = firebase.database().ref()
     var VrstaGoriva = data[1];
     var KolicinaGoriva = data[0];
+    var Vrijeme = data[2];
+    var _key;
+    var childData;
 
     if (VrstaGoriva == 'Diesel') {
         aSpremnik_diesel.forEach(function (oSpremnikdiesel) {
             var Stanje = +oSpremnikdiesel.Stanje + +KolicinaGoriva;
-            data = {
-                Stanje
+            if (Stanje > 20000) {
+                window.alert("Maksimalna količina u spremniku je 20000L, nemoguće stornirati.")
+            } else {
+                data = {
+                    Stanje
+                }
+                fb.child("Spremnik/0").update(data)
+                fb.child('Racun').orderByChild('Datumvrijeme').equalTo(Vrijeme).on("value", function (snapshot) {
+                    //console.log(snapshot.val());
+                    snapshot.forEach(function (data) {
+                        _key = data.key;
+                        childData = data.val();
+                        var Storno = childData.Storno = 1
+                        data2 = {
+                            Storno
+                        }
+                        fb.child('Racun/' + _key).update(data2)
+                    });
+                });
+                window.location.reload()
             }
-            fb.child("Spremnik/0").update(data)
-            window.location.reload()
         });
     } else if (VrstaGoriva == 'Benzin') {
         aSpremnik_benzin.forEach(function (oSpremnikbenzin) {
             var Stanje = +oSpremnikbenzin.Stanje + +KolicinaGoriva;
-            data = {
-                Stanje
+            if (Stanje > 20000) {
+                window.alert("Maksimalna količina u spremniku je 20000L, nemoguće stornirati.")
+            } else {
+                data = {
+                    Stanje
+                }
             }
             fb.child("Spremnik/1").update(data)
+            fb.child('Racun').orderByChild('Datumvrijeme').equalTo(Vrijeme).on("value", function (snapshot) {
+               // console.log(snapshot.val());
+                snapshot.forEach(function (data) {
+                    _key = data.key;
+                    childData = data.val();
+                    var Storno = childData.Storno = 1
+                    data2 = {
+                        Storno
+                    }
+                    fb.child('Racun/' + _key).update(data2)
+                });
+            });
             window.location.reload()
         });
     }
