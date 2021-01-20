@@ -410,7 +410,6 @@ function PopuniTablicuRacuni() {
             alert("Ovaj račun je već storniran.")
         });
     });
-
 }
 
 function Storno() {
