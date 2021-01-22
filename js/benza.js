@@ -397,6 +397,7 @@ function PopuniTablicuRacuni() {
         }
         $(document).ready(function () {
             table = $('#TablicaRacuni').DataTable();
+            console.log(table);
         });
     });
 
