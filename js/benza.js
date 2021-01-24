@@ -1,23 +1,23 @@
-var aLogin = [];
+let aLogin = [];
 
 function Login() {
-    var email = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
+    let email = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then((user) => {
             window.location.href = "naslovnica.html";
         })
         .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
+            let errorCode = error.code;
+            let errorMessage = error.message;
             window.alert("Unijeli ste pogrešnu email adresu ili lozinku!");
         });
 }
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-        var user = firebase.auth().currentUser;
-        var uid;
+        let user = firebase.auth().currentUser;
+        let uid;
         if (user != null) {
             uid = user.uid;
         }
@@ -39,13 +39,14 @@ function Logout() {
     });
 }
 
-var aSpremnik_diesel = [];
-var oDb = firebase.database();
-var oDbSpremnik_diesel = oDb.ref('Spremnik').orderByChild('Naziv').equalTo('Diesel');
+let oDb = firebase.database();
+
+let aSpremnik_diesel = [];
+let oDbSpremnik_diesel = oDb.ref('Spremnik').orderByChild('Naziv').equalTo('Diesel');
 oDbSpremnik_diesel.on('value', function (oOdgovorPosluzitelja) {
     aSpremnik_diesel = [];
     oOdgovorPosluzitelja.forEach(function (oSpremnik_dieselSnapshot) {
-        var oSpremnik_diesel = oSpremnik_dieselSnapshot.val();
+        let oSpremnik_diesel = oSpremnik_dieselSnapshot.val();
         aSpremnik_diesel.push({
             Cijena: oSpremnik_diesel.Cijena,
             Stanje: oSpremnik_diesel.Stanje
@@ -54,13 +55,12 @@ oDbSpremnik_diesel.on('value', function (oOdgovorPosluzitelja) {
     UcitajCijenaDiesel();
 });
 
-var aSpremnik_benzin = [];
-var oDb = firebase.database();
-var oDbSpremnik_benzin = oDb.ref('Spremnik').orderByChild('Naziv').equalTo('Benzin');
+let aSpremnik_benzin = [];
+let oDbSpremnik_benzin = oDb.ref('Spremnik').orderByChild('Naziv').equalTo('Benzin');
 oDbSpremnik_benzin.on('value', function (oOdgovorPosluzitelja) {
     aSpremnik_benzin = [];
     oOdgovorPosluzitelja.forEach(function (oSpremnik_benzinSnapshot) {
-        var oSpremnik_benzin = oSpremnik_benzinSnapshot.val();
+        let oSpremnik_benzin = oSpremnik_benzinSnapshot.val();
         aSpremnik_benzin.push({
             Cijena: oSpremnik_benzin.Cijena,
             Stanje: oSpremnik_benzin.Stanje
@@ -70,13 +70,12 @@ oDbSpremnik_benzin.on('value', function (oOdgovorPosluzitelja) {
     UcitajCijenaBenzin();
 });
 
-var aRacuni = [];
-var oDb = firebase.database();
-var oDbRacuni = oDb.ref('Racun');
+let aRacuni = [];
+let oDbRacuni = oDb.ref('Racun');
 oDbRacuni.on('value', function (oOdgovorPosluzitelja) {
     aRacuni = [];
     oOdgovorPosluzitelja.forEach(function (oRacuniSnapshot) {
-        var oRacuni = oRacuniSnapshot.val();
+        let oRacuni = oRacuniSnapshot.val();
         aRacuni.push({
             DatumVrijeme: oRacuni.Datumvrijeme,
             Zaposlenik: oRacuni.Zaposlenik_izdao,
@@ -89,13 +88,12 @@ oDbRacuni.on('value', function (oOdgovorPosluzitelja) {
     PopuniTablicuRacuni();
 });
 
-var aSpremnici = [];
-var oDb = firebase.database();
-var oDbSpremnici = oDb.ref('Spremnik');
+let aSpremnici = [];
+let oDbSpremnici = oDb.ref('Spremnik');
 oDbSpremnici.on('value', function (oOdgovorPosluzitelja) {
     aSpremnici = [];
     oOdgovorPosluzitelja.forEach(function (oRacuniSnapshot) {
-        var oSpremnik = oRacuniSnapshot.val();
+        let oSpremnik = oRacuniSnapshot.val();
         aSpremnici.push({
             idSpremnika: oSpremnik.Id_spremnika,
             Naziv: oSpremnik.Naziv,
@@ -104,8 +102,8 @@ oDbSpremnici.on('value', function (oOdgovorPosluzitelja) {
         });
     });
     UcitajSpremnik();
-    var Diesel_spremnik = 0;
-    var Benzin_spremnik = 0;
+    let Diesel_spremnik = 0;
+    let Benzin_spremnik = 0;
     aSpremnici.forEach(function (oSpremnik) {
         if (oSpremnik.idSpremnika == 1) {
             Diesel_spremnik = parseInt(oSpremnik.Stanje);
@@ -114,7 +112,7 @@ oDbSpremnici.on('value', function (oOdgovorPosluzitelja) {
         }
 
     });
-    var data = [{
+    let data = [{
             domain: {
                 row: 0,
                 column: 0
@@ -156,7 +154,7 @@ oDbSpremnici.on('value', function (oOdgovorPosluzitelja) {
             }
         }
     ];
-    var layout = {
+    let layout = {
         width: "100%",
         height: 300,
         margin: {
@@ -181,13 +179,12 @@ oDbSpremnici.on('value', function (oOdgovorPosluzitelja) {
     }
 });
 
-var aZaposlenici = [];
-var oDb = firebase.database();
-var oDbZaposlenici = oDb.ref('Zaposlenik');
+let aZaposlenici = [];
+let oDbZaposlenici = oDb.ref('Zaposlenik');
 oDbZaposlenici.on('value', function (oOdgovorPosluzitelja) {
     aZaposlenici = [];
     oOdgovorPosluzitelja.forEach(function (oZaposleniciSnapshot) {
-        var oZaposlenici = oZaposleniciSnapshot.val();
+        let oZaposlenici = oZaposleniciSnapshot.val();
         aZaposlenici.push({
             Ime_prezime: oZaposlenici.Ime_prezime,
             Id_zap: oZaposlenici.Id_zaposlenika
@@ -195,23 +192,31 @@ oDbZaposlenici.on('value', function (oOdgovorPosluzitelja) {
     });
 });
 
+function addZero(i) {
+    if(i<10)
+    {
+        i= "0" + i;
+    }
+    return i;
+}
+
 function IzdajRacun() {
-    var provjera = false;
-    var sZaposlenik;
-    var nKolicina_goriva = document.getElementById('Amount').value;
-    var sVrsta_goriva_diesel = document.getElementById('diesel');
-    var sVrsta_goriva_benzin = document.getElementById('benzin');
-    var currentdate = new Date();
-    var datetime = currentdate.getDate() + "/" +
+    let provjera = false;
+    let sZaposlenik;
+    let nKolicina_goriva = document.getElementById('Amount').value;
+    let sVrsta_goriva_diesel = document.getElementById('diesel');
+    let sVrsta_goriva_benzin = document.getElementById('benzin');
+    let currentdate = new Date();
+    let datetime = currentdate.getDate() + "/" +
         (currentdate.getMonth() + 1) + "/" +
         currentdate.getFullYear() + " " +
         currentdate.getHours() + ":" +
-        currentdate.getMinutes() + ":" +
-        currentdate.getSeconds();
-    var nId_goriva = 0;
-    var sCijena = 0;
-    var fCijena = 0;
-    var defaultStorno = 0;
+        addZero(currentdate.getMinutes()) + ":" +
+        addZero(currentdate.getSeconds());
+    let nId_goriva = 0;
+    let sCijena = 0;
+    let fCijena = 0;
+    let defaultStorno = 0;
     if (nKolicina_goriva < 5) {
         window.alert("Minimalna količina je 5 litara!");
         provjera = true;
@@ -222,7 +227,7 @@ function IzdajRacun() {
                     window.alert("Nedovoljna količina goriva u spremniku!");
                     provjera = true;
                 } else {
-                    var Stanje = +oSpremnikdiesel.Stanje - +nKolicina_goriva;
+                    let Stanje = +oSpremnikdiesel.Stanje - +nKolicina_goriva;
                     const fb = firebase.database().ref()
                     data = {
                         Stanje
@@ -239,7 +244,7 @@ function IzdajRacun() {
                     window.alert("Nedovoljna količina goriva u spremniku!");
                     provjera = true;
                 } else {
-                    var Stanje = +oSpremnikbenzin.Stanje - +nKolicina_goriva;
+                    let Stanje = +oSpremnikbenzin.Stanje - +nKolicina_goriva;
                     const fb = firebase.database().ref()
                     data = {
                         Stanje
@@ -257,7 +262,7 @@ function IzdajRacun() {
         }
     }
     if (provjera == false) {
-        var sKey = firebase.database().ref().child('Racun').push().key;
+        let sKey = firebase.database().ref().child('Racun').push().key;
         aLogin.forEach(function (oLogin) {
             aZaposlenici.forEach(function (oZaposlenici) {
                 if (oLogin.Uid == oZaposlenici.Id_zap) {
@@ -266,7 +271,7 @@ function IzdajRacun() {
             });
 
         });
-        var oRacun = {
+        let oRacun = {
 
             Cijena: fCijena,
             Datumvrijeme: datetime,
@@ -277,7 +282,7 @@ function IzdajRacun() {
         };
 
         // Zapiši u Firebase
-        var oZapis = {};
+        let oZapis = {};
         oZapis[sKey] = oRacun;
         oDbRacuni.update(oZapis);
         location.reload();
@@ -286,8 +291,8 @@ function IzdajRacun() {
 
 function AzurirajCijenaDiesel() {
     const fb = firebase.database().ref()
-    var Nova_cijena = document.getElementById("azuriraj_cijenad").value
-    var Cijena = +Nova_cijena;
+    let Nova_cijena = document.getElementById("azuriraj_cijenad").value
+    let Cijena = +Nova_cijena;
     data = {
         Cijena
     }
@@ -297,8 +302,8 @@ function AzurirajCijenaDiesel() {
 
 function AzurirajCijenaBenzin() {
     const fb = firebase.database().ref()
-    var Nova_cijena = document.getElementById("azuriraj_cijenab").value
-    var Cijena = +Nova_cijena;
+    let Nova_cijena = document.getElementById("azuriraj_cijenab").value
+    let Cijena = +Nova_cijena;
     data = {
         Cijena
     }
@@ -308,9 +313,9 @@ function AzurirajCijenaBenzin() {
 
 function AzurirajDiesel() {
     const fb = firebase.database().ref()
-    var Novo_stanje = document.getElementById("azuriraj_spremnik1").value
+    let Novo_stanje = document.getElementById("azuriraj_spremnik1").value
     aSpremnik_diesel.forEach(function (oSpremnikdiesel) {
-        var Stanje = +oSpremnikdiesel.Stanje + +Novo_stanje;
+        let Stanje = +oSpremnikdiesel.Stanje + +Novo_stanje;
         if (Novo_stanje < 1000) {
             window.alert("Minimalna količina je 1000 litara!")
         } else if (Stanje > 20000) {
@@ -327,9 +332,9 @@ function AzurirajDiesel() {
 
 function AzurirajBenzin() {
     const fb = firebase.database().ref()
-    var Novo_stanje = document.getElementById("azuriraj_spremnik2").value
+    let Novo_stanje = document.getElementById("azuriraj_spremnik2").value
     aSpremnik_benzin.forEach(function (oSpremnikbenzin) {
-        var Stanje = +oSpremnikbenzin.Stanje + +Novo_stanje;
+        let Stanje = +oSpremnikbenzin.Stanje + +Novo_stanje;
         if (Novo_stanje < 1000) {
             window.alert("Minimalna količina je 1000 litara!")
         } else if (Stanje > 20000) {
@@ -368,61 +373,67 @@ function UcitajCijenaBenzin() {
 function UcitajSpremnik() {
 
     aSpremnici.forEach(function (oSpremnik) {
-        var VrstaGor = "";
+        let VrstaGor = "";
         if (oSpremnik.VrstaGoriva == 1) {
             VrstaGor = "Diesel";
         } else if (oSpremnik.VrstaGoriva == 2) {
             VrstaGor = "Benzin";
         }
         $("#live").append("<div class=live>Stanje " + oSpremnik.Naziv + " / Maximum:</br>" + oSpremnik.Stanje + " L / 20000 L" + "</div></br>");
-        $(document).ready(function () {});
     });
 }
 
-var data;
+let data;
+
 function PopuniTablicuRacuni() {
-    var table;
+    let table;
     aRacuni.forEach(function (oRacuni) {
-        var VrstaGor = "";
+        let VrstaGor = "";
         if (oRacuni.VrstaGoriva == 1) {
             VrstaGor = "Diesel";
         } else if (oRacuni.VrstaGoriva == 2) {
             VrstaGor = "Benzin";
         }
-        if (oRacuni.Storno == 1) {
-            $("#table_body").addClass("storno").append("<tr style='color: #ff0000;'><td>" + oRacuni.Kolicina + "</td><td>" + VrstaGor + "</td><td>" + oRacuni.DatumVrijeme + "</td><td>" + oRacuni.Zaposlenik + "</td><td>" + oRacuni.Cijena + "</td></tr>" );
-        } else {
-            $("#table_body").append("<tr><td>" + oRacuni.Kolicina + "</td><td>" + VrstaGor + "</td><td>" + oRacuni.DatumVrijeme + "</td><td>" + oRacuni.Zaposlenik + "</td><td>" + oRacuni.Cijena + "</td></tr>");
+        if(oRacuni.Storno == 1)
+        {
+            $("#table_body").append("<tr style='color:#FF0000;' data-storno=\"" + oRacuni.Storno + "\"><td>" + oRacuni.Kolicina + "</td><td>" + VrstaGor + "</td><td>" + oRacuni.DatumVrijeme + "</td><td>" + oRacuni.Zaposlenik + "</td><td>" + oRacuni.Cijena + "</td></tr>");
         }
-        $(document).ready(function () {
-            table = $('#TablicaRacuni').DataTable();
-            console.log(table);
-        });
+        else {
+            $("#table_body").append("<tr data-storno=\"" + oRacuni.Storno + "\"><td>" + oRacuni.Kolicina + "</td><td>" + VrstaGor + "</td><td>" + oRacuni.DatumVrijeme + "</td><td>" + oRacuni.Zaposlenik + "</td><td>" + oRacuni.Cijena + "</td></tr>");
+        }
     });
 
     $(document).ready(function () {
+        table = $('#TablicaRacuni').DataTable();
         $('#TablicaRacuni tbody#table_body').on('click', 'tr', function () {
-            data = table.row(this).data();
-            $('#Storno').modal("show");
+            let dataAttr = parseInt($(this).data('storno'), 10);
+            switch (dataAttr) {
+                case 1:
+                    alert("Ovaj račun je već storniran");
+                    break;
+
+                default:
+                    data = table.row(this).data();
+                    $('#Storno').modal("show");
+                    break;
+            }
+
         });
 
-        $('#TablicaRacuni tbody#table_body.storno').on('click', 'tr', function () {
-            alert("Ovaj račun je već storniran.")
-        });
     });
 }
 
 function Storno() {
     const fb = firebase.database().ref()
-    var VrstaGoriva = data[1];
-    var KolicinaGoriva = data[0];
-    var Vrijeme = data[2];
-    var _key;
-    var childData;
+    let VrstaGoriva = data[1];
+    let KolicinaGoriva = data[0];
+    let Vrijeme = data[2];
+    let _key;
+    let childData;
 
     if (VrstaGoriva == 'Diesel') {
         aSpremnik_diesel.forEach(function (oSpremnikdiesel) {
-            var Stanje = +oSpremnikdiesel.Stanje + +KolicinaGoriva;
+            let Stanje = +oSpremnikdiesel.Stanje + +KolicinaGoriva;
             if (Stanje > 20000) {
                 window.alert("Maksimalna količina u spremniku je 20000L, nemoguće stornirati.")
             } else {
@@ -435,7 +446,7 @@ function Storno() {
                     snapshot.forEach(function (data) {
                         _key = data.key;
                         childData = data.val();
-                        var Storno = childData.Storno = 1
+                        let Storno = childData.Storno = 1
                         data2 = {
                             Storno
                         }
@@ -447,7 +458,7 @@ function Storno() {
         });
     } else if (VrstaGoriva == 'Benzin') {
         aSpremnik_benzin.forEach(function (oSpremnikbenzin) {
-            var Stanje = +oSpremnikbenzin.Stanje + +KolicinaGoriva;
+            let Stanje = +oSpremnikbenzin.Stanje + +KolicinaGoriva;
             if (Stanje > 20000) {
                 window.alert("Maksimalna količina u spremniku je 20000L, nemoguće stornirati.")
             } else {
@@ -457,11 +468,11 @@ function Storno() {
             }
             fb.child("Spremnik/1").update(data)
             fb.child('Racun').orderByChild('Datumvrijeme').equalTo(Vrijeme).on("value", function (snapshot) {
-               // console.log(snapshot.val());
+                // console.log(snapshot.val());
                 snapshot.forEach(function (data) {
                     _key = data.key;
                     childData = data.val();
-                    var Storno = childData.Storno = 1
+                    let Storno = childData.Storno = 1
                     data2 = {
                         Storno
                     }
