@@ -14,7 +14,7 @@
 
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-        <link rel="stylesheet"
+    <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -22,12 +22,59 @@
 
 <body>
     <div class="wrapper">
-        <nav id="sidebar"></nav>
+        <nav id="sidebar">
+            <div class="sidebar-header>
+            <a href=" index.html"><img src="images/logo.png" alt="" class="img-fluid" href="index.html">
+                </a> </div>
+
+
+            <ul class="list-unstyled components">
+                <li class="nav-item active  ">
+                    <a class="nav-link" href="naslovnica.html">
+                        <i class="material-icons">dashboard</i>
+                        <p>NASLOVNICA</p>
+                    </a>
+                </li>
+                <li class="nav-item active  ">
+                    <a class="nav-link" href="izdaj.html">
+                        <i class="material-icons">dashboard</i>
+                        <p>IZRADA RAČUNA</p>
+                    </a>
+                </li>
+                <li class="nav-item active  ">
+                    <a class="nav-link" href="pregled.html">
+                        <i class="material-icons">dashboard</i>
+                        <p>PREGLED RAČUNA</p>
+                    </a>
+                </li>
+                <li class="nav-item active  ">
+                    <a class="nav-link" href="azuriranjecijene.html">
+                        <i class="material-icons">dashboard</i>
+                        <p>AŽURIRANJE CIJENE</p>
+                    </a>
+                </li>
+                <li class="nav-item active  ">
+                    <a class="nav-link" href="azuriranjespremnika.html">
+                        <i class="material-icons">dashboard</i>
+                        <p>AŽURIRANJE SPREMNIKA</p>
+                    </a>
+                </li>
+            </ul>
+            <ul class="list-unstyled CTAs">
+                <div id="live"></div>
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" id="Login" onclick="Logout()">
+                        Odjava
+                    </button>
+                </div>
+            </ul>
+
+        </nav>
 
         <div id="content">
             <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
                 <i class="material-icons">list</i>
-                </button>
+            </button>
             <div class="jumbotron text-center">
 
                 <h1>ET PETROL</h1>
@@ -40,8 +87,10 @@
                         <div class="card ">
                             <div class="card-body text-center text-uppercase bg-heading">
                                 <label for="Value">cijena HRK / L dizela</label>
-                                <input type="number" class="form-control" id="azuriraj_cijenad" placeholder="... unesi novu cijenu ..."></br>
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#UpdateDizel">Potvrdi</button>
+                                <input type="number" class="form-control" id="azuriraj_cijenad"
+                                    placeholder="... unesi novu cijenu ..."></br>
+                                <button class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#UpdateDizel">Potvrdi</button>
                                 <div class="cijenad"></div>
                             </div>
                         </div>
@@ -50,8 +99,10 @@
                         <div class="card">
                             <div class="card-body text-center text-uppercase bg-heading">
                                 <label for="Value">cijena HRK / L benzina</label>
-                                <input type="number" class="form-control" id="azuriraj_cijenab" placeholder="... unesi novu cijenu ..."></br>
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#UpdateBenzin">Potvrdi</button>
+                                <input type="number" class="form-control" id="azuriraj_cijenab"
+                                    placeholder="... unesi novu cijenu ..."></br>
+                                <button class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#UpdateBenzin">Potvrdi</button>
                                 <div class="cijenab"></div>
                             </div>
                         </div>
@@ -97,7 +148,11 @@
                 </div>
             </div>
 
-            <footer class="footer"></footer>
+            <footer class="footer">
+                <div class="container-fluid">
+                    &copy; 2020 OWP projekt by Hrvoje Đaković
+                </div>
+            </footer>
         </div>
     </div>
 
@@ -106,7 +161,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-database.js"></script>    
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-database.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js">
     </script>
@@ -114,29 +169,23 @@
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js">
     </script>
-        <script src="js/config.js"></script>
-        <script src="js/benza.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#sidebar").mCustomScrollbar({
-                    theme: "minimal"
-                });
-    
-                $('#sidebarCollapse').on('click', function () {
-                    $('#sidebar, #content').toggleClass('active');
-                    $('.collapse.in').toggleClass('in');
-                    $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-                });
+    <script src="js/config.js"></script>
+    <script src="js/benza.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            UcitajSpremnik();
+
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
             });
-    
-            $(document).ready(function () {
-                UcitajSpremnik();
-    
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
-    
-            $('#sidebar').load('static/nav.html');
-            $('.footer').load('static/footer.html');
-        </script>
+        });
+    </script>
 </body>
 
 </html>

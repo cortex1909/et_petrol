@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-        <link rel="stylesheet"
+    <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -21,7 +21,54 @@
 
 <body>
     <div class="wrapper">
-        <nav id="sidebar"></nav>
+        <nav id="sidebar">
+            <div class="sidebar-header>
+            <a href=" index.html"><img src="images/logo.png" alt="" class="img-fluid" href="index.html">
+                </a> </div>
+
+
+            <ul class="list-unstyled components">
+                <li class="nav-item active  ">
+                    <a class="nav-link" href="naslovnica.html">
+                        <i class="material-icons">dashboard</i>
+                        <p>NASLOVNICA</p>
+                    </a>
+                </li>
+                <li class="nav-item active  ">
+                    <a class="nav-link" href="izdaj.html">
+                        <i class="material-icons">dashboard</i>
+                        <p>IZRADA RAČUNA</p>
+                    </a>
+                </li>
+                <li class="nav-item active  ">
+                    <a class="nav-link" href="pregled.html">
+                        <i class="material-icons">dashboard</i>
+                        <p>PREGLED RAČUNA</p>
+                    </a>
+                </li>
+                <li class="nav-item active  ">
+                    <a class="nav-link" href="azuriranjecijene.html">
+                        <i class="material-icons">dashboard</i>
+                        <p>AŽURIRANJE CIJENE</p>
+                    </a>
+                </li>
+                <li class="nav-item active  ">
+                    <a class="nav-link" href="azuriranjespremnika.html">
+                        <i class="material-icons">dashboard</i>
+                        <p>AŽURIRANJE SPREMNIKA</p>
+                    </a>
+                </li>
+            </ul>
+            <ul class="list-unstyled CTAs">
+                <div id="live"></div>
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" id="Login" onclick="Logout()">
+                        Odjava
+                    </button>
+                </div>
+            </ul>
+
+        </nav>
 
         <div id="content">
             <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
@@ -33,19 +80,21 @@
                 <h3>IZRADA RAČUNA</h3><br>
             </div>
 
-            <div class="w-25 p-3 mx-auto">
-                <div class="form-group">
-                    <label for="Amount">Količina goriva</label>
+            <div class="container">
+                <div class="form-group mx-auto p-2" style="width: 300px; ">
+                    <label for="Amount">Unesite količinu i vrstu goriva</label>
                     <input type="number" class="form-control" id="Amount" placeholder="Količina">
+                    <div id="radio" class="p-1">
+                        <label class="float-start">
+                            <input type="radio" name="gorivo" value="Diesel" id="diesel"> Diesel </input>
+                        </label>
+                        <label class="float-end">
+                            <input type="radio" name="gorivo" value="Benzin" id="benzin"> Benzin </input>
+                        </label>
+                    </div>
+                    <button class="btn btn-success w-100" data-bs-toggle="modal"
+                        data-bs-target="#IzdajRacun">Potvrdi</button>
                 </div>
-                <div id="radio">
-                    <label>
-                        <input type="radio" name="gorivo" value="Diesel" id="diesel"> Diesel
-                        </br>
-                        <input type="radio" name="gorivo" value="Benzin" id="benzin"> Benzin
-                    </label>
-                </div>
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#IzdajRacun">Potvrdi</button>
             </div>
             <!-- Modal -->
             <div class="modal fade" id="IzdajRacun" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -65,7 +114,11 @@
                     </div>
                 </div>
             </div>
-            <footer class="footer"></footer>
+            <footer class="footer">
+                <div class="container-fluid">
+                    &copy; 2020 OWP projekt by Hrvoje Đaković
+                </div>
+            </footer>
         </div>
     </div>
 
@@ -86,6 +139,8 @@
     <script src="js/benza.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            UcitajSpremnik();
+
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"
             });
@@ -96,14 +151,6 @@
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
         });
-
-        $(document).ready(function () {
-            UcitajSpremnik();
-
-        });
-
-        $('#sidebar').load('static/nav.html');
-        $('.footer').load('static/footer.html');
     </script>
 </body>
 

@@ -378,9 +378,8 @@ function UcitajSpremnik() {
         $(document).ready(function () {});
     });
 }
-var data;
-var _storno;
 
+var data;
 function PopuniTablicuRacuni() {
     var table;
     aRacuni.forEach(function (oRacuni) {
@@ -391,7 +390,7 @@ function PopuniTablicuRacuni() {
             VrstaGor = "Benzin";
         }
         if (oRacuni.Storno == 1) {
-            $("#table_body_storno").append("<tr><td>" + oRacuni.Kolicina + "</td><td>" + VrstaGor + "</td><td>" + oRacuni.DatumVrijeme + "</td><td>" + oRacuni.Zaposlenik + "</td><td>" + oRacuni.Cijena + "</td></tr>");
+            $("#table_body").addClass("storno").append("<tr style='color: #ff0000;'><td>" + oRacuni.Kolicina + "</td><td>" + VrstaGor + "</td><td>" + oRacuni.DatumVrijeme + "</td><td>" + oRacuni.Zaposlenik + "</td><td>" + oRacuni.Cijena + "</td></tr>" );
         } else {
             $("#table_body").append("<tr><td>" + oRacuni.Kolicina + "</td><td>" + VrstaGor + "</td><td>" + oRacuni.DatumVrijeme + "</td><td>" + oRacuni.Zaposlenik + "</td><td>" + oRacuni.Cijena + "</td></tr>");
         }
@@ -407,7 +406,7 @@ function PopuniTablicuRacuni() {
             $('#Storno').modal("show");
         });
 
-        $('#TablicaRacuni tbody#table_body_storno').on('click', 'tr', function () {
+        $('#TablicaRacuni tbody#table_body.storno').on('click', 'tr', function () {
             alert("Ovaj račun je već storniran.")
         });
     });

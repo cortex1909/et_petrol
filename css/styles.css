@@ -206,7 +206,6 @@ a.article:hover {
     background-color: #6d7fcc !important;
     color: #fff !important;
     display: inline-block;
-    padding: 3px 10px;
     margin-bottom: 0;
     font-size: 16px;
     font-weight: 400;
@@ -284,6 +283,10 @@ a.article:hover {
     text-align: right;
     border-top: 1px dotted rgb(202, 200, 200);
     padding-top: 10px;
+}
+
+.header {
+    width: 300px;
 }
 
 /* ---------------------------------------------------
