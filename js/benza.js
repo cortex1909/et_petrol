@@ -405,6 +405,20 @@ function PopuniTablicuRacuni() {
 
     $(document).ready(function () {
         table = $('#TablicaRacuni').DataTable();
+
+        $.fn.dataTable.ext.search.push(
+            function( settings, searchData, index, rowData, counter ) {
+              var match = false;
+              var searchTerm = settings.oPreviousSearch.sSearch.toLowerCase();
+              searchData.forEach(function (item, index) {
+                if (item.toLowerCase().startsWith(searchTerm)) {
+                  match = true;
+               }
+              } );
+              return match;
+            }
+          );
+        
         $('#TablicaRacuni tbody#table_body').on('click', 'tr', function () {
             let dataAttr = parseInt($(this).data('storno'), 10);
             switch (dataAttr) {
