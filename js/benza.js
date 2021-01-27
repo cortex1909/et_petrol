@@ -1,5 +1,6 @@
-let aLogin = [];
+// funkcija za logiranje u sistem putem firebase autentifikacije
 
+let aLogin = [];
 function Login() {
     let email = document.getElementById("username").value;
     let password = document.getElementById("password").value;
@@ -30,6 +31,8 @@ firebase.auth().onAuthStateChanged(function (user) {
     }
 });
 
+// odjavljivanje iz aplikacija putem firebase funkcije
+
 function Logout() {
     firebase.auth().signOut().then(() => {
         window.alert("Odjavljeni ste!");
@@ -39,8 +42,9 @@ function Logout() {
     });
 }
 
-let oDb = firebase.database();
+// ucitavanje podataka iz firebase baze podataka u array
 
+let oDb = firebase.database(); 
 let aSpremnik_diesel = [];
 let oDbSpremnik_diesel = oDb.ref('Spremnik').orderByChild('Naziv').equalTo('Diesel');
 oDbSpremnik_diesel.on('value', function (oOdgovorPosluzitelja) {
@@ -101,7 +105,8 @@ oDbSpremnici.on('value', function (oOdgovorPosluzitelja) {
             Cijena: oSpremnik.Cijena
         });
     });
-    UcitajSpremnik();
+    UcitajSpremnik(); // pozivamo funkciju za ucitavanje spremnika, "live" prikaz stanja spremnika u svakom dijelu aplikacije (sidebar)
+    // prikaz stanja spremnika putem grafa koristeci Plotly
     let Diesel_spremnik = 0;
     let Benzin_spremnik = 0;
     aSpremnici.forEach(function (oSpremnik) {
@@ -192,6 +197,8 @@ oDbZaposlenici.on('value', function (oOdgovorPosluzitelja) {
     });
 });
 
+// funkcija za dodavanje nule u vrijeme ukoliko je npr 13:03:06, bez ovoga bi bio zapis 13:3:6
+
 function addZero(i) {
     if(i<10)
     {
@@ -199,6 +206,8 @@ function addZero(i) {
     }
     return i;
 }
+
+// funkcija za izdavanje računa
 
 function IzdajRacun() {
     let provjera = false;
@@ -289,6 +298,8 @@ function IzdajRacun() {
     }
 }
 
+// u iduće dvije funkcije ažuriramo cijenu goriva
+
 function AzurirajCijenaDiesel() {
     const fb = firebase.database().ref()
     let Nova_cijena = document.getElementById("azuriraj_cijenad").value
@@ -310,6 +321,8 @@ function AzurirajCijenaBenzin() {
     fb.child("Spremnik/1").update(data)
     window.location.reload();
 }
+
+// u iduće dvije funkcije ažuriramo stanje spremnika goriva
 
 function AzurirajDiesel() {
     const fb = firebase.database().ref()
@@ -349,6 +362,8 @@ function AzurirajBenzin() {
     });
 }
 
+// u iduće dvije funkcije učitavamo cijene goriva za tablicu na naslovnici
+
 
 function UcitajCijenaDiesel() {
 
@@ -370,6 +385,8 @@ function UcitajCijenaBenzin() {
 
 }
 
+// u funkciji ucitavamo stanje spremnika za "live" pregled stanja spremnika koji se nalazi na svakoj stranici (sidebar)
+
 function UcitajSpremnik() {
 
     aSpremnici.forEach(function (oSpremnik) {
@@ -382,6 +399,8 @@ function UcitajSpremnik() {
         $("#live").append("<div class=live>Stanje " + oSpremnik.Naziv + " / Maximum:</br>" + oSpremnik.Stanje + " L / 20000 L" + "</div></br>");
     });
 }
+
+// funkcija za ispis, sortiranje, filtriranje te storniranje svih izdanih računa
 
 let data;
 
@@ -436,6 +455,8 @@ function PopuniTablicuRacuni() {
 
     });
 }
+
+// funkcija koja se poziva prilikom klika na određeni redak u ispisu računa, služi za storniranje računa
 
 function Storno() {
     const fb = firebase.database().ref()
