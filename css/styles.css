@@ -40,27 +40,12 @@ a:focus {
     transition: all 0.3s;
 }
 
-.navbar {
-    padding: 15px 10px;
-    background: #fff;
-    border: none;
-    border-radius: 0;
-    margin-bottom: 40px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
 .navbar-btn {
     box-shadow: none;
     outline: none !important;
     border: none;
 }
 
-.line {
-    width: 100%;
-    height: 1px;
-    border-bottom: 1px dashed #ddd;
-    margin: 40px 0;
-}
 
 /* ---------------------------------------------------
     SIDEBAR STYLE
@@ -147,11 +132,11 @@ ul ul a {
     background: #6d7fcc;
 }
 
-ul.CTAs {
+ul.width {
     padding: 20px;
 }
 
-ul.CTAs a {
+ul.width a {
     text-align: center;
     font-size: 0.9em !important;
     display: block;
@@ -187,7 +172,6 @@ a.article:hover {
 #content.active {
     width: 100%;
 }
-
 
 .jumbotron {
     padding: 2rem 1rem;
@@ -261,6 +245,22 @@ a.article:hover {
     -webkit-border-radius: 5px;
 }
 
+.achtung {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.footer {
+    text-align: right;
+    border-top: 1px dotted rgb(202, 200, 200);
+    padding-top: 10px;
+}
+
+/*--------------------- kartice ------------------------*/
+
 .bg-petrol {
     padding: 15px 10px;
     border-radius: .3rem;
@@ -279,52 +279,22 @@ a.article:hover {
     color: #fff !important;
 }
 
-.footer {
-    text-align: right;
-    border-top: 1px dotted rgb(202, 200, 200);
-    padding-top: 10px;
+.card-header {
+    padding: 20px 0px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 }
 
-.header {
-    width: 300px;
+.card-footer {
+    padding: 20px 0px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
 }
 
-/* ---------------------------------------------------
-    TABLE
------------------------------------------------------ */
-
-#table_body_storno {
-    color: red;
-}
-
-/* ---------------------------------------------------
-    MEDIAQUERIES
------------------------------------------------------ */
-
-@media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-
-    #sidebar.active {
-        margin-left: 0;
-    }
-
-    #content {
-        width: 100%;
-    }
-
-    #content.active {
-        width: calc(100% - 250px);
-    }
-
-    #sidebarCollapse span {
-        display: none;
-    }
-}
 
 /*------------------------------------------------------------------
-[ Button ]*/
+[ Button Odjava ]*/
 .container-login100-form-btn {
     width: 100%;
     display: -webkit-box;
@@ -405,21 +375,28 @@ button:hover {
     cursor: pointer;
 }
 
-iframe {
-    border: none !important;
-}
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
 
-/*---------------------------------------------*/
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
 
-.card-header {
-    padding: 20px 0px;
-    border-bottom: 1px solid transparent;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-}
+    #sidebar.active {
+        margin-left: 0;
+    }
 
-.card-footer {
-    padding: 20px 0px;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
+    #content {
+        width: 100%;
+    }
+
+    #content.active {
+        width: calc(100% - 250px);
+    }
+
+    #sidebarCollapse span {
+        display: none;
+    }
 }

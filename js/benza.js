@@ -1,6 +1,7 @@
 // funkcija za logiranje u sistem putem firebase autentifikacije
 
 let aLogin = [];
+
 function Login() {
     let email = document.getElementById("username").value;
     let password = document.getElementById("password").value;
@@ -44,7 +45,7 @@ function Logout() {
 
 // ucitavanje podataka iz firebase baze podataka u array
 
-let oDb = firebase.database(); 
+let oDb = firebase.database();
 let aSpremnik_diesel = [];
 let oDbSpremnik_diesel = oDb.ref('Spremnik').orderByChild('Naziv').equalTo('Diesel');
 oDbSpremnik_diesel.on('value', function (oOdgovorPosluzitelja) {
@@ -200,9 +201,8 @@ oDbZaposlenici.on('value', function (oOdgovorPosluzitelja) {
 // funkcija za dodavanje nule u vrijeme ukoliko je npr 13:03:06, bez ovoga bi bio zapis 13:3:6
 
 function addZero(i) {
-    if(i<10)
-    {
-        i= "0" + i;
+    if (i < 10) {
+        i = "0" + i;
     }
     return i;
 }
@@ -366,36 +366,30 @@ function AzurirajBenzin() {
 
 
 function UcitajCijenaDiesel() {
-
     aSpremnik_diesel.forEach(function (oSpremnik_diesel) {
-
         $(".cijenad").append("<h3>" + oSpremnik_diesel.Cijena + " HRK/L</h3>");
-
     });
-
 }
 
 function UcitajCijenaBenzin() {
-
     aSpremnik_benzin.forEach(function (oSpremnik_benzin) {
-
         $(".cijenab").append("<h3>" + oSpremnik_benzin.Cijena + " HRK/L</h3>");
-
     });
-
 }
 
 // u funkciji ucitavamo stanje spremnika za "live" pregled stanja spremnika koji se nalazi na svakoj stranici (sidebar)
 
 function UcitajSpremnik() {
-
     aSpremnici.forEach(function (oSpremnik) {
-        let VrstaGor = "";
+        /*let VrstaGor = "";
         if (oSpremnik.VrstaGoriva == 1) {
             VrstaGor = "Diesel";
         } else if (oSpremnik.VrstaGoriva == 2) {
             VrstaGor = "Benzin";
         }
+        if (oSpremnik.Stanje < 3000) {
+            $("#live").append("<div class=achtung> Imate manje od 3000L goriva u "+ oSpremnik.Naziv +" spremniku!</div>")
+        }*/
         $("#live").append("<div class=live>Stanje " + oSpremnik.Naziv + " / Maximum:</br>" + oSpremnik.Stanje + " L / 20000 L" + "</div></br>");
     });
 }
@@ -413,11 +407,9 @@ function PopuniTablicuRacuni() {
         } else if (oRacuni.VrstaGoriva == 2) {
             VrstaGor = "Benzin";
         }
-        if(oRacuni.Storno == 1)
-        {
+        if (oRacuni.Storno == 1) {
             $("#table_body").append("<tr style='color:#FF0000;' data-storno=\"" + oRacuni.Storno + "\"><td>" + oRacuni.Kolicina + "</td><td>" + VrstaGor + "</td><td>" + oRacuni.DatumVrijeme + "</td><td>" + oRacuni.Zaposlenik + "</td><td>" + oRacuni.Cijena + "</td></tr>");
-        }
-        else {
+        } else {
             $("#table_body").append("<tr data-storno=\"" + oRacuni.Storno + "\"><td>" + oRacuni.Kolicina + "</td><td>" + VrstaGor + "</td><td>" + oRacuni.DatumVrijeme + "</td><td>" + oRacuni.Zaposlenik + "</td><td>" + oRacuni.Cijena + "</td></tr>");
         }
     });
@@ -426,18 +418,18 @@ function PopuniTablicuRacuni() {
         table = $('#TablicaRacuni').DataTable();
 
         $.fn.dataTable.ext.search.push(
-            function( settings, searchData, index, rowData, counter ) {
-              var match = false;
-              var searchTerm = settings.oPreviousSearch.sSearch.toLowerCase();
-              searchData.forEach(function (item, index) {
-                if (item.toLowerCase().startsWith(searchTerm)) {
-                  match = true;
-               }
-              } );
-              return match;
+            function (settings, searchData, index, rowData, counter) {
+                var match = false;
+                var searchTerm = settings.oPreviousSearch.sSearch.toLowerCase();
+                searchData.forEach(function (item, index) {
+                    if (item.toLowerCase().startsWith(searchTerm)) {
+                        match = true;
+                    }
+                });
+                return match;
             }
-          );
-        
+        );
+
         $('#TablicaRacuni tbody#table_body').on('click', 'tr', function () {
             let dataAttr = parseInt($(this).data('storno'), 10);
             switch (dataAttr) {
