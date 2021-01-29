@@ -408,7 +408,7 @@ function PopuniTablicuRacuni() {
             VrstaGor = "Benzin";
         }
         if (oRacuni.Storno == 1) {
-            $("#table_body").append("<tr style='color:#FF0000;' data-storno=\"" + oRacuni.Storno + "\"><td>" + oRacuni.Kolicina + "</td><td>" + VrstaGor + "</td><td>" + oRacuni.DatumVrijeme + "</td><td>" + oRacuni.Zaposlenik + "</td><td>" + oRacuni.Cijena + "</td></tr>");
+            $("#table_body").append("<tr style='color:#de0bbe;' data-storno=\"" + oRacuni.Storno + "\"><td>" + oRacuni.Kolicina + "</td><td>" + VrstaGor + "</td><td>" + oRacuni.DatumVrijeme + "</td><td>" + oRacuni.Zaposlenik + "</td><td>" + oRacuni.Cijena + "</td></tr>");
         } else {
             $("#table_body").append("<tr data-storno=\"" + oRacuni.Storno + "\"><td>" + oRacuni.Kolicina + "</td><td>" + VrstaGor + "</td><td>" + oRacuni.DatumVrijeme + "</td><td>" + oRacuni.Zaposlenik + "</td><td>" + oRacuni.Cijena + "</td></tr>");
         }

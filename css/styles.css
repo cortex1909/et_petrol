@@ -239,6 +239,7 @@ a.article:hover {
     text-align: center;
     background-color: #6d7fcc;
     padding: 5px;
+    border-radius: .3rem;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
